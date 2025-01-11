@@ -65,6 +65,10 @@ def main():
                 else:
                     print(f"{args[0]}: command not found")
 
+        # while using `cat` but without [Filename], it will wait for keyboard interrupt
+        except KeyboardInterrupt:
+            print("\nUse 'exit 0' to quit the shell.")
+
         except EOFError:
             save_history(history)
             print("exit")
