@@ -6,18 +6,31 @@ from app.commands import handle_pwd, handle_cd, handle_type
 from app.echo import handle_echo_command
 from app.utils import find_executable, parse_redirection
 from app.executor import execute_command_with_redirection
+from app.history import load_history, save_history, print_history
 
 
 def main():
+    history = load_history()
+
     while True:
         try:
             sys.stdout.write("$ ")
             command = input()
 
+            if not command.strip():
+                continue
+
             if command == "exit 0":
+                save_history(history)
                 sys.exit(0)
 
-            elif command == "pwd":
+            history.append(command)
+
+            if command == "history":
+                print_history(history)
+                continue
+
+            if command == "pwd":
                 handle_pwd()
 
             elif command.startswith("cd"):
@@ -53,6 +66,7 @@ def main():
                     print(f"{args[0]}: command not found")
 
         except EOFError:
+            save_history(history)
             print("exit")
             sys.exit(0)
 
