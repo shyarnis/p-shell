@@ -29,8 +29,8 @@ def main():
             elif command.startswith("type"):
                 handle_type(command.split())
 
-            elif command.startswith("clear"):
-                os.system("clear")
+            elif command == "clear":
+                os.system("clear" if os.name == "posix" else "cls")
 
             else:
                 # Parse command and handle redirection
