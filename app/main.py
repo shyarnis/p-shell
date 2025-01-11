@@ -1,3 +1,4 @@
+import os
 import sys
 import shlex
 
@@ -27,6 +28,9 @@ def main():
 
             elif command.startswith("type"):
                 handle_type(command.split())
+
+            elif command.startswith("clear"):
+                os.system("clear")
 
             else:
                 # Parse command and handle redirection
